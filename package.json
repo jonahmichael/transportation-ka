@@ -9,6 +9,8 @@
     "deploy": "hardhat run scripts/deploy.js --network localhost",
     "demo": "hardhat run scripts/demo.js --network hardhat",
     "populate": "hardhat run scripts/populate-data.js --network hardhat",
+    "populate-local": "hardhat run scripts/populate-data.js --network localhost",
+    "start": "hardhat run scripts/start-with-data.js --network hardhat",
     "node": "hardhat node"
   },
   "keywords": [

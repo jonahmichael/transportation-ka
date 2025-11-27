@@ -10,12 +10,14 @@ import {
   Link as LinkIcon
 } from 'lucide-react'
 import blockchainService from '../../services/blockchain'
+import CommissionBusModal from '../../components/CommissionBusModal'
 import './Dashboard.css'
 
 export default function DepotManagerDashboard() {
   const navigate = useNavigate()
   const [buses, setBuses] = useState([])
   const [loading, setLoading] = useState(true)
+  const [showCommissionModal, setShowCommissionModal] = useState(false)
   const [stats, setStats] = useState({
     total: 0,
     onRoute: 0,
@@ -155,7 +157,10 @@ export default function DepotManagerDashboard() {
                 <div className="card quick-actions">
                   <h2 className="card-header">Quick Actions</h2>
                   <div className="actions-list">
-                    <button className="action-btn btn btn-primary">
+                    <button 
+                      className="action-btn btn btn-primary"
+                      onClick={() => setShowCommissionModal(true)}
+                    >
                       <Plus size={20} />
                       Commission New Bus
                     </button>
@@ -246,6 +251,15 @@ export default function DepotManagerDashboard() {
           </>
         )}
       </div>
+
+      {/* Commission Bus Modal */}
+      <CommissionBusModal
+        isOpen={showCommissionModal}
+        onClose={() => setShowCommissionModal(false)}
+        onSuccess={() => {
+          loadData() // Reload buses after successful commission
+        }}
+      />
     </div>
   )
 }

@@ -106,10 +106,16 @@ class BlockchainService {
   }
 
   // Mint new bus
-  async mintBusPassport(owner, registrationNumber, chassisNumber, model) {
+  async mintBusPassport(registrationNumber, chassisNumber, model) {
     try {
+      // Ensure we're connected
+      if (!this.signer || !this.contract) {
+        await this.connect()
+      }
+      
+      const ownerAddress = await this.signer.getAddress()
       const tx = await this.contract.mintBusPassport(
-        owner,
+        ownerAddress,
         registrationNumber,
         chassisNumber,
         model
@@ -125,6 +131,11 @@ class BlockchainService {
   // Commission bus
   async commissionBus(tokenId, initialOdometer) {
     try {
+      // Ensure we're connected
+      if (!this.signer || !this.contract) {
+        await this.connect()
+      }
+      
       const tx = await this.contract.commissionBus(tokenId, initialOdometer)
       const receipt = await tx.wait()
       return receipt
