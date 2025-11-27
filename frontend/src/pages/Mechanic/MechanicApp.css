@@ -1,0 +1,351 @@
+.mechanic-app {
+  min-height: 100vh;
+  background-color: var(--color-bg-secondary);
+  padding-bottom: var(--spacing-2xl);
+}
+
+/* Login Screen */
+.login-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-gray-900) 0%, var(--color-gray-700) 100%);
+}
+
+.login-container {
+  background-color: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-2xl);
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--shadow-lg);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.login-header h1 {
+  font-size: var(--font-size-2xl);
+  margin: var(--spacing-md) 0 var(--spacing-xs);
+}
+
+.login-header p {
+  color: var(--color-text-secondary);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.login-form label {
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.login-input {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-2xl);
+  text-align: center;
+  letter-spacing: 0.5em;
+  font-weight: 600;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: var(--ksrtc-red);
+}
+
+/* Header */
+.mechanic-header {
+  background-color: var(--color-white);
+  padding: var(--spacing-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--spacing-xl);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.header-left h2 {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-xs);
+}
+
+.header-subtitle {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  padding: var(--spacing-sm);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: background-color var(--transition-fast);
+}
+
+.btn-icon:hover {
+  background-color: var(--color-gray-100);
+}
+
+/* Home Screen */
+.home-container {
+  padding: var(--spacing-xl);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.scan-btn {
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 300px;
+  margin: 0 auto var(--spacing-2xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  background: linear-gradient(135deg, var(--ksrtc-red) 0%, var(--ksrtc-red-hover) 100%);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-xl);
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: transform var(--transition-base);
+}
+
+.scan-btn:hover {
+  transform: scale(1.05);
+}
+
+.scan-btn:active {
+  transform: scale(0.98);
+}
+
+.assigned-jobs {
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  border: 1px solid var(--color-border);
+}
+
+.assigned-jobs h3 {
+  margin-bottom: var(--spacing-lg);
+  font-size: var(--font-size-lg);
+}
+
+.job-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.job-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  background-color: var(--color-gray-100);
+  border-radius: var(--radius-md);
+}
+
+.job-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.job-info strong {
+  font-size: var(--font-size-lg);
+}
+
+.job-info span {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+/* Job Screen */
+.job-container {
+  padding: var(--spacing-xl);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.job-info-card {
+  background-color: var(--color-white);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  border: 1px solid var(--color-border);
+}
+
+.job-info-card h2 {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--spacing-xs);
+}
+
+.job-type {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+}
+
+.progress-circle {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.progress-text strong {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+}
+
+/* Checklist */
+.checklist {
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+  border: 1px solid var(--color-border);
+}
+
+.checklist h3 {
+  margin-bottom: var(--spacing-lg);
+  font-size: var(--font-size-lg);
+}
+
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  margin-bottom: var(--spacing-sm);
+  background-color: var(--color-gray-100);
+}
+
+.checklist-item:hover {
+  background-color: var(--color-gray-200);
+}
+
+.checklist-item.completed {
+  background-color: #D1FAE5;
+}
+
+.checklist-item.completed:hover {
+  background-color: #A7F3D0;
+}
+
+.checkbox {
+  flex-shrink: 0;
+  padding-top: var(--spacing-xs);
+}
+
+.task-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.task-name {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+}
+
+.checklist-item.completed .task-name {
+  text-decoration: line-through;
+  color: var(--color-text-secondary);
+}
+
+.task-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--color-warning);
+  color: var(--color-white);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  width: fit-content;
+}
+
+.task-badge.success {
+  background-color: var(--color-success);
+}
+
+/* Submit Button */
+.btn-large {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  font-size: var(--font-size-xl);
+  width: 100%;
+  font-weight: 700;
+}
+
+.submit-btn {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: var(--shadow-md);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+/* Tablet Optimizations */
+@media (min-width: 768px) {
+  .login-container {
+    max-width: 500px;
+  }
+
+  .scan-btn {
+    max-width: 400px;
+  }
+
+  .job-container {
+    max-width: 800px;
+  }
+
+  .checklist-item {
+    padding: var(--spacing-xl);
+  }
+
+  .task-name {
+    font-size: var(--font-size-xl);
+  }
+}

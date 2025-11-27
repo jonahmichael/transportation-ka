@@ -1,0 +1,30 @@
+{
+  "name": "suraksha-chain",
+  "version": "1.0.0",
+  "description": "KSRTC Fleet Management System - Digital Vehicle Passport on Blockchain",
+  "main": "index.js",
+  "scripts": {
+    "test": "hardhat test",
+    "compile": "hardhat compile",
+    "deploy": "hardhat run scripts/deploy.js --network localhost",
+    "demo": "hardhat run scripts/demo.js --network hardhat",
+    "populate": "hardhat run scripts/populate-data.js --network hardhat",
+    "node": "hardhat node"
+  },
+  "keywords": [
+    "blockchain",
+    "ethereum",
+    "solidity",
+    "nft",
+    "fleet-management"
+  ],
+  "author": "KSRTC",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.1"
+  }
+}
