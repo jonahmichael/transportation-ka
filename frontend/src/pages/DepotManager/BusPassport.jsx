@@ -17,7 +17,7 @@ export default function BusPassport() {
   const { tokenId } = useParams()
   const navigate = useNavigate()
   const [bus, setBus] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [activeTab, setActiveTab] = useState('maintenance')
 
   useEffect(() => {
@@ -25,10 +25,71 @@ export default function BusPassport() {
   }, [tokenId])
 
   const loadBusData = async () => {
-    setLoading(true)
-    await blockchainService.connect()
-    const busData = await blockchainService.getBusDetails(Number(tokenId))
-    setBus(busData)
+    // Generate dummy data based on tokenId for demonstration
+    const dummyBuses = {
+      '1': {
+        tokenId: 1,
+        registrationNumber: 'KA-01-F-1234',
+        chassisNumber: 'CH1234567890',
+        model: 'Tata Starbus',
+        isCommissioned: true,
+        commissioningDate: Date.now() - 365 * 24 * 60 * 60 * 1000,
+        initialOdometer: 15000,
+        maintenanceHistory: [
+          { timestamp: Date.now() - 30 * 24 * 60 * 60 * 1000, serviceType: '10,000 km Service', workshopId: 'Central Workshop', mechanicId: 'Ramesh Kumar', supervisorId: 'Supervisor A. Kumar', sparePartsUsed: ['Engine Oil', 'Oil Filter', 'Air Filter'], odometerReading: 25000 },
+          { timestamp: Date.now() - 60 * 24 * 60 * 60 * 1000, serviceType: '20,000 km Service', workshopId: 'Yeshwanthpur Workshop', mechanicId: 'Suresh Patel', supervisorId: 'Supervisor B. Sharma', sparePartsUsed: ['Brake Pads', 'Brake Fluid'], odometerReading: 20000 },
+          { timestamp: Date.now() - 90 * 24 * 60 * 60 * 1000, serviceType: 'Annual Inspection', workshopId: 'Central Workshop', mechanicId: 'Mahesh Reddy', supervisorId: 'Supervisor C. Iyer', sparePartsUsed: ['Wiper Blades', 'Light Bulbs'], odometerReading: 18000 }
+        ],
+        accidentHistory: [],
+        fuelHistory: [
+          { timestamp: Date.now() - 5 * 24 * 60 * 60 * 1000, depotId: 'Shantinagar', litersDispensed: 65, odometerReading: 25500 },
+          { timestamp: Date.now() - 10 * 24 * 60 * 60 * 1000, depotId: 'Shantinagar', litersDispensed: 70, odometerReading: 25200 },
+          { timestamp: Date.now() - 15 * 24 * 60 * 60 * 1000, depotId: 'Banashankari', litersDispensed: 68, odometerReading: 24900 }
+        ]
+      },
+      '2': {
+        tokenId: 2,
+        registrationNumber: 'KA-01-F-5678',
+        chassisNumber: 'CH2345678901',
+        model: 'Ashok Leyland Viking',
+        isCommissioned: true,
+        commissioningDate: Date.now() - 400 * 24 * 60 * 60 * 1000,
+        initialOdometer: 22000,
+        maintenanceHistory: [
+          { timestamp: Date.now() - 20 * 24 * 60 * 60 * 1000, serviceType: '40,000 km Service', workshopId: 'Banashankari Workshop', mechanicId: 'Ganesh Rao', supervisorId: 'Supervisor A. Kumar', sparePartsUsed: ['Transmission Oil', 'Coolant', 'Battery'], odometerReading: 42000 },
+          { timestamp: Date.now() - 45 * 24 * 60 * 60 * 1000, serviceType: 'PMI Service', workshopId: 'Central Workshop', mechanicId: 'Dinesh Singh', supervisorId: 'Supervisor B. Sharma', sparePartsUsed: ['Air Filter', 'Oil Filter'], odometerReading: 38000 }
+        ],
+        accidentHistory: [
+          { timestamp: Date.now() - 120 * 24 * 60 * 60 * 1000, reportId: 'ACC-2024-1001', location: 'Electronic City Circle', description: 'Minor collision with auto-rickshaw while changing lanes', reportHash: '0x1234567890abcdef' }
+        ],
+        fuelHistory: [
+          { timestamp: Date.now() - 3 * 24 * 60 * 60 * 1000, depotId: 'Banashankari', litersDispensed: 72, odometerReading: 43000 },
+          { timestamp: Date.now() - 8 * 24 * 60 * 60 * 1000, depotId: 'Kengeri', litersDispensed: 68, odometerReading: 42700 }
+        ]
+      }
+    }
+    
+    // Use dummy data for the requested tokenId, or create generic data
+    const dummyBus = dummyBuses[tokenId] || {
+      tokenId: Number(tokenId),
+      registrationNumber: `KA-0${tokenId}-F-${1000 + Number(tokenId) * 111}`,
+      chassisNumber: `CH${tokenId}234567890`,
+      model: ['Tata Starbus', 'Ashok Leyland Viking', 'BYD K9 Electric', 'Volvo 8400'][Number(tokenId) % 4],
+      isCommissioned: true,
+      commissioningDate: Date.now() - Number(tokenId) * 30 * 24 * 60 * 60 * 1000,
+      initialOdometer: 10000 + Number(tokenId) * 5000,
+      maintenanceHistory: [
+        { timestamp: Date.now() - 30 * 24 * 60 * 60 * 1000, serviceType: '10,000 km Service', workshopId: 'Central Workshop', mechanicId: 'Ramesh Kumar', supervisorId: 'Supervisor A. Kumar', sparePartsUsed: ['Engine Oil', 'Oil Filter'], odometerReading: 20000 + Number(tokenId) * 1000 }
+      ],
+      accidentHistory: Number(tokenId) % 3 === 0 ? [
+        { timestamp: Date.now() - 60 * 24 * 60 * 60 * 1000, reportId: `ACC-2024-${1000 + Number(tokenId)}`, location: 'Hosur Road Junction', description: 'Minor incident during route operation', reportHash: `0x${tokenId}abcdef1234567890` }
+      ] : [],
+      fuelHistory: [
+        { timestamp: Date.now() - 5 * 24 * 60 * 60 * 1000, depotId: 'Shantinagar', litersDispensed: 65 + Number(tokenId), odometerReading: 21000 + Number(tokenId) * 1000 }
+      ]
+    }
+    
+    setBus(dummyBus)
     setLoading(false)
   }
 

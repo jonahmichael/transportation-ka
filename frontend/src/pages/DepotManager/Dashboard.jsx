@@ -15,36 +15,54 @@ import './Dashboard.css'
 
 export default function DepotManagerDashboard() {
   const navigate = useNavigate()
-  const [buses, setBuses] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [buses, setBuses] = useState([
+    // Dummy data for UI showcase
+    { tokenId: 1, registrationNumber: 'KA-01-F-1234', chassisNumber: 'CH1234567890', model: 'Tata Starbus', isCommissioned: true, initialOdometer: 15000, maintenanceCount: 5, accidentCount: 0, fuelCount: 12 },
+    { tokenId: 2, registrationNumber: 'KA-01-F-5678', chassisNumber: 'CH2345678901', model: 'Ashok Leyland Viking', isCommissioned: true, initialOdometer: 22000, maintenanceCount: 8, accidentCount: 1, fuelCount: 18 },
+    { tokenId: 3, registrationNumber: 'KA-02-F-9012', chassisNumber: 'CH3456789012', model: 'BYD K9 Electric', isCommissioned: true, initialOdometer: 8000, maintenanceCount: 3, accidentCount: 0, fuelCount: 10 },
+    { tokenId: 4, registrationNumber: 'KA-03-F-3456', chassisNumber: 'CH4567890123', model: 'Volvo 8400', isCommissioned: true, initialOdometer: 35000, maintenanceCount: 12, accidentCount: 2, fuelCount: 25 },
+    { tokenId: 5, registrationNumber: 'KA-04-F-7890', chassisNumber: 'CH5678901234', model: 'Tata Starbus', isCommissioned: true, initialOdometer: 18000, maintenanceCount: 6, accidentCount: 0, fuelCount: 15 },
+    { tokenId: 6, registrationNumber: 'KA-05-F-2345', chassisNumber: 'CH6789012345', model: 'Ashok Leyland Viking', isCommissioned: true, initialOdometer: 28000, maintenanceCount: 9, accidentCount: 1, fuelCount: 20 },
+    { tokenId: 7, registrationNumber: 'KA-06-F-6789', chassisNumber: 'CH7890123456', model: 'BYD K9 Electric', isCommissioned: true, initialOdometer: 12000, maintenanceCount: 4, accidentCount: 0, fuelCount: 14 },
+    { tokenId: 8, registrationNumber: 'KA-07-F-0123', chassisNumber: 'CH8901234567', model: 'Volvo 8400', isCommissioned: true, initialOdometer: 41000, maintenanceCount: 14, accidentCount: 0, fuelCount: 30 },
+    { tokenId: 9, registrationNumber: 'KA-08-F-4567', chassisNumber: 'CH9012345678', model: 'Tata Starbus', isCommissioned: true, initialOdometer: 9000, maintenanceCount: 2, accidentCount: 0, fuelCount: 8 },
+    { tokenId: 10, registrationNumber: 'KA-09-F-8901', chassisNumber: 'CH0123456789', model: 'Ashok Leyland Viking', isCommissioned: true, initialOdometer: 31000, maintenanceCount: 11, accidentCount: 1, fuelCount: 22 }
+  ])
+  const [loading, setLoading] = useState(false)
   const [showCommissionModal, setShowCommissionModal] = useState(false)
   const [stats, setStats] = useState({
-    total: 0,
-    onRoute: 0,
-    inWorkshop: 0,
-    awaitingService: 0
+    total: 11,
+    onRoute: 8,
+    inWorkshop: 2,
+    awaitingService: 1
   })
 
   useEffect(() => {
-    loadData()
+    // Don't load data - keep dummy data for showcase
+    // loadData()
   }, [])
 
   const loadData = async () => {
+    // Commented out to keep dummy data visible
+    // Uncomment when blockchain is ready
+    /*
     setLoading(true)
+    
     const connected = await blockchainService.connect()
     if (connected) {
       const busesData = await blockchainService.getAllBuses()
-      setBuses(busesData)
-      
-      // Calculate stats (mock data for status)
-      setStats({
-        total: busesData.length,
-        onRoute: Math.floor(busesData.length * 0.75),
-        inWorkshop: Math.floor(busesData.length * 0.15),
-        awaitingService: Math.floor(busesData.length * 0.10)
-      })
+      if (busesData.length > 0) {
+        setBuses(busesData)
+        setStats({
+          total: busesData.length,
+          onRoute: Math.floor(busesData.length * 0.75),
+          inWorkshop: Math.floor(busesData.length * 0.15),
+          awaitingService: Math.floor(busesData.length * 0.10)
+        })
+      }
     }
     setLoading(false)
+    */
   }
 
   const getLastOdometer = (bus) => {
@@ -54,9 +72,80 @@ export default function DepotManagerDashboard() {
 
   const getStatus = (index) => {
     // Mock status based on index
-    if (index % 10 < 7) return { label: 'On Route', class: 'badge-success' }
-    if (index % 10 < 9) return { label: 'In Workshop', class: 'badge-warning' }
-    return { label: 'Awaiting Service', class: 'badge-error' }
+    if (index % 10 < 8) return { label: 'On Route', class: 'badge-success' }
+    if (index % 10 < 10) return { label: 'In Workshop', class: 'badge-warning' }
+    return { label: 'Awaiting Assignment', class: 'badge-error' }
+  }
+
+  const generateFleetReport = () => {
+    // Generate dummy report data
+    const reportDate = new Date().toLocaleDateString('en-IN', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    })
+    
+    const reportContent = `
+KSRTC FLEET MANAGEMENT REPORT
+Generated: ${reportDate}
+Central Depot, Bangalore
+
+═══════════════════════════════════════════════════════════════
+
+FLEET SUMMARY
+─────────────────────────────────────────────────────────────
+Total Buses:              ${stats.total}
+On Route:                 ${stats.onRoute}
+In Workshop:              ${stats.inWorkshop}
+Awaiting Service:         ${stats.awaitingService}
+
+DETAILED FLEET STATUS
+─────────────────────────────────────────────────────────────
+${buses.map((bus, index) => `
+${bus.registrationNumber} - ${bus.model}
+  Status: ${getStatus(index).label}
+  Odometer: ${bus.initialOdometer.toLocaleString()} km
+  Maintenance Records: ${bus.maintenanceCount}
+  Fuel Records: ${bus.fuelCount}
+  Accidents: ${bus.accidentCount}
+`).join('')}
+
+MAINTENANCE ALERTS
+─────────────────────────────────────────────────────────────
+• KA-01-F-1234: Overdue for 80,000 km Service (2 days)
+• KA-01-F-5678: Accident Report Filed - Awaiting Review
+
+FUEL EFFICIENCY SUMMARY
+─────────────────────────────────────────────────────────────
+Average Fuel Consumption: 4.5 km/liter
+Most Efficient: KA-02-F-9012 (BYD K9 Electric)
+Needs Attention: KA-03-F-3456 (Below Average)
+
+RECOMMENDATIONS
+─────────────────────────────────────────────────────────────
+1. Schedule overdue maintenance for KA-01-F-1234
+2. Review accident report for KA-01-F-5678
+3. Consider electric bus expansion (BYD K9 performing well)
+4. Plan preventive maintenance for buses nearing service intervals
+
+═══════════════════════════════════════════════════════════════
+Report generated by SURAKSHA CHAIN Blockchain System
+Digital signatures and timestamps recorded on immutable ledger
+`
+
+    // Create and download the report
+    const blob = new Blob([reportContent], { type: 'text/plain' })
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `KSRTC_Fleet_Report_${new Date().toISOString().split('T')[0]}.txt`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    window.URL.revokeObjectURL(url)
+    
+    // Show success message
+    alert('✅ Fleet Report Generated Successfully!\n\nThe report has been downloaded to your computer.')
   }
 
   return (
@@ -164,7 +253,10 @@ export default function DepotManagerDashboard() {
                       <Plus size={20} />
                       Commission New Bus
                     </button>
-                    <button className="action-btn btn btn-secondary">
+                    <button 
+                      className="action-btn btn btn-secondary"
+                      onClick={generateFleetReport}
+                    >
                       <FileText size={20} />
                       Generate Fleet Report
                     </button>
